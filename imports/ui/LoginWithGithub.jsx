@@ -12,9 +12,25 @@ export const LoginWithGithub = () => {
   };
 
   return (
-    <Button variant="contained" color="primary" onClick={handleGithubLogin} startIcon={<GitHubIcon />}>
-    Login with Github
+    <Button
+      variant="contained"
+      color="primary"
+      startIcon={<GitHubIcon />}
+      onClick={handleGithubLogin}
+      sx={{
+        fontSize: 16,
+        fontWeight: 500,
+        boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+        '&:hover': {
+          backgroundColor: '#1976d2',
+        },
+        '&:focus': {
+          backgroundColor: '#1976d2',
+          outline: 'none',
+        },
+      }}
+    >
+      Login with GitHub
     </Button>
-    
   );
 };

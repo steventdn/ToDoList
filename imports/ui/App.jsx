@@ -5,12 +5,9 @@ import { TasksCollection } from '/imports/db/TasksCollection';
 import { Task } from './Task';
 import { TaskForm } from './TaskForm';
 import { LoginForm } from './LoginForm';
-import Box from '@mui/material/Box';
-
-
-import { createTheme, ThemeProvider } from '@mui/material';
-import { Button, Typography, Container } from '@mui/material';
-
+import { Box, Typography, Container, Button } from '@mui/material';
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
@@ -19,8 +16,6 @@ export const App = () => {
     Meteor.call('tasks.setIsChecked', _id, !isChecked);
 
   const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id);
-
-  //================================================
 
   const [hideCompleted, setHideCompleted] = useState(false);
 
@@ -60,37 +55,43 @@ export const App = () => {
   const logout = () => Meteor.logout();
 
   return (
-    
-
-          
-      <div className="app">
-        <header>
-          <Box className="app-bar">
-            <Box className="app-header">
-              <Typography variant="h1" component="h1">
-                📝️ To Do List
-                {pendingTasksTitle}
-              </Typography>
-            </Box>
+    <>
+    <Container maxWidth= "md">
+      <Box className="app">
+      <header>
+        <Box className="app-bar">
+          <Box className="app-header" display="flex" alignItems="center">
+            <ChecklistIcon sx={{ fontSize: '2rem', marginRight: '0.5rem' }} />
+            <Typography variant="h6" component="h6">
+              To Do List
+              {pendingTasksTitle}
+            </Typography>
           </Box>
-        </header>
+        </Box>
+      </header>
 
-        <div className="main">
+
+
+
+        <Box className="main">
           {user ? (
             <Fragment>
-              <div className="user" onClick={logout}>
-                {user.username || user.profile.name} Log Out🚪
+            <div className="user" onClick={logout}>
+              <div className="user-info">
+                {user.username || user.profile.name}
               </div>
+                <ExitToAppIcon />
+            </div>
 
               <TaskForm />
-
-              <div className="filter">
-                <Button onClick={() => setHideCompleted(!hideCompleted)}>
+              
+              <Box className="filter">
+                <Button onClick={() => setHideCompleted(!hideCompleted)} color= "primary" variant="contained">
                   {hideCompleted ? 'Show All' : 'Hide Completed'}
                 </Button>
-              </div>
+              </Box>
 
-              {isLoading && <div className="loading">loading...</div>}
+              {isLoading && <Box className="loading">loading...</Box>}
 
               <ul className="tasks">
                 {tasks.map(task => (
@@ -106,8 +107,9 @@ export const App = () => {
           ) : (
             <LoginForm />
           )}
-        </div>
-      </div>
-  
+        </Box>
+      </Box>
+    </Container>
+    </>
   );
 };

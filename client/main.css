@@ -80,6 +80,8 @@ header {
 
 .task-form {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 16px;
 }
 
@@ -134,7 +136,7 @@ header {
 }
 
 .filter > button {
-  background-color: #62807e;
+  background-color:  #315481;
 }
 
 .login-form {
